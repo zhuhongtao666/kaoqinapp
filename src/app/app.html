@@ -1,0 +1,16 @@
+<ion-menu [content]="mainContent">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        菜单栏
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content id="side-menu21">
+    <ion-list>
+      <button ion-button on-click="exit()" style="left:100px;">注销用户</button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mainContent [root]="rootPage"></ion-nav>

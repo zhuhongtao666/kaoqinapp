@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      查看统计页面
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page4">
+  <h1>个人信息</h1>
+  <hr>
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col id="photo">  
+        </ion-col>
+        <ion-col>
+          <h5>用户名：{{ username }}</h5>
+          <h5>用户姓名：{{ truename }}</h5>
+          <h5>手机号：{{ tel }}</h5>
+          <h5>身份证：{{ sfz }}</h5>
+          <h5>工号：{{ gonghao }}</h5>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="spacer" style="height:10px;" id="page4-spacer6"></div>
+  <hr>
+  <ion-calendar [(ngModel)]="dateMulti"
+                [options]="optionsMulti"
+                [type]="type"
+                [format]="'YYYY-MM-DD'">
+  </ion-calendar>
+  <hr>
+  <div id="container" style="display: block;"></div>
+  <button ion-button on-click="table()">更新图表</button>
+</ion-content>

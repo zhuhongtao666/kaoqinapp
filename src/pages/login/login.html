@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      登录
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page5">
+  <h1 id="login-heading1" style="color:#9C89CC;text-align:center;">
+    考勤系统
+  </h1>
+  <div class="spacer" style="height:10px;" id="login-spacer4"></div>
+  <img src="assets/img/college.jpg" style="display:block;width:40%;height:20%;margin-left:auto;margin-right:auto;" />
+  <div class="spacer" style="height:20px;" id="login-spacer3"></div>
+  <form id="login-form1">
+    <ion-list id="login-list1">
+      <ion-item id="login-input1">
+        <ion-label>
+          账号
+        </ion-label>
+        <ion-input placeholder="请输入账号" #username></ion-input>
+      </ion-item>
+      <ion-item id="login-input2">
+        <ion-label>
+          密码
+        </ion-label>
+        <ion-input type="password" placeholder="请输入密码" #password></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="spacer" style="height:40px;" id="login-spacer1"></div>
+    <button id="login-button1" ion-button color="positive" block on-click="goTokaoqinPage(username,password)">
+      登陆
+    </button>
+    <button id="login-button2" ion-button clear color="positive" block style="color:#6B577C;" on-click="goToSignup()">
+      或注册账号
+    </button>
+  </form>
+</ion-content>

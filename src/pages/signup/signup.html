@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      用户注册
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page6">
+  <h1 id="signup-heading2" style="color:#F3C3C3;text-align:center;">
+    用户注册
+  </h1>
+  <form id="signup-form2">
+      <ion-item id="signup-input3">
+        <ion-label>
+          用户名
+        </ion-label>
+        <ion-input type="text" placeholder="" #username></ion-input>
+      </ion-item>
+      <ion-item id="signup-input5">
+        <ion-label>
+          密码
+        </ion-label>
+        <ion-input type="text" placeholder="" #password></ion-input>
+      </ion-item>
+    <ion-item id="signup-input7">
+      <ion-label>
+        确认密码
+      </ion-label>
+      <ion-input type="text" placeholder="" #password2></ion-input>
+    </ion-item>
+    <ion-item id="signup-inputxuehao">
+      <ion-label>
+        学号
+      </ion-label>
+      <ion-input type="text" placeholder="" #xuehao></ion-input>
+    </ion-item>
+    <ion-item id="signup-inputtruename">
+      <ion-label>
+        姓名
+      </ion-label>
+      <ion-input type="text" placeholder="" #truename></ion-input>
+    </ion-item>
+    <ion-item id="signup-inputsfz">
+      <ion-label>
+        身份证
+      </ion-label>
+      <ion-input type="text" placeholder="" #sfz></ion-input>
+    </ion-item>
+    <ion-item id="signup-list-item3">
+      <ion-thumbnail item-left>
+        <img src="assets/img/91Mvm6eFT8eiJhJIJpe6_other.png" id="photo" style="height: 100%; width: 100%"/>
+        <button id="takephoto" ion-button color="positive" on-click="takephoto()">拍摄头像</button>
+      </ion-thumbnail>
+    </ion-item>
+    <ion-item id="signup-input9">
+      <ion-label>
+        手机号
+      </ion-label>
+      <ion-input type="tel" placeholder="" #tel></ion-input>
+    </ion-item>
+    <button id="signup-button5" ion-button on-click="getcode(tel)" color="positive" style="left: 15px;">
+      获取验证码
+    </button>
+    <ion-item id="signup-input10">
+      <ion-label>
+        验证码
+      </ion-label>
+      <ion-input type="text" placeholder="" #code></ion-input>
+    </ion-item>
+    <div class="spacer" style="height:10px;" id="signup-spacer5"></div>
+    <ion-item id="signup-checkbox1">
+      <ion-label>
+        我已阅读用户协议，并且同意上述条款
+      </ion-label>
+      <ion-checkbox [(ngModel)]="xieyi" on-click="test()" name="myxieyi"></ion-checkbox>
+    </ion-item>
+    <button id="signup_commit" ion-button color="stable" block on-click="signup(username,password,password2,tel,xuehao,sfz,truename)" disabled="true">
+      提交注册
+    </button>
+  </form>
+</ion-content>

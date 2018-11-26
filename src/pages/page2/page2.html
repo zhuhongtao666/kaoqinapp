@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      考勤页面
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page2">
+  <h3>用户名:</h3>
+  <img id="myphoto" src="assets/img/91Mvm6eFT8eiJhJIJpe6_other.png" style="height: 400px; width: 400px"/>
+  <h3>11</h3>
+  <button id="page2-button6" ion-button color="positive" block on-click="goToPage7()">
+    拍照
+  </button>
+  <form id="page2-form5">
+    <ion-item id="page2-select2">
+      <ion-label>
+        办公地点
+      </ion-label>
+      <ion-select name="">
+        <ion-option>
+          计算机楼
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <div id="map_container"></div>
+    <div>
+      <h4 id="result"></h4>
+    </div>
+    <button id="page2-button7" ion-button color="balanced" block on-click="loadmap()">
+      重新定位
+    </button>
+    <button id="page2-button12" ion-button color="calm" block on-click="goToPage10()">
+      确定考勤
+    </button>
+  </form>
+</ion-content>
