@@ -60,36 +60,43 @@ export class kaoqinPage {
     
   }
   loadmap(){
+    var lng_max = this.jingweidu.lng_max;
+    var lng_min = this.jingweidu.lng_min;
+    var lat_max = this.jingweidu.lat_max;
+    var lat_min = this.jingweidu.lat_min;
+    var success = this.toastCtrl.create({
+      message: "上课地点定位成功！",
+      duration: 4000
+    });
+    var fail = this.toastCtrl.create({
+      message: "上课地点定位失败！",
+      duration: 4000
+    });
+
     var map = new BMap.Map("map_container2");
     var point = new BMap.Point(116.331398,39.897445);
     map.centerAndZoom(point,14);
-
     var geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function(r){
       if(this.getStatus() == 0 ){
         var mk = new BMap.Marker(r.point);
         map.addOverlay(mk);
         map.panTo(r.point);
-        if(r.point.lng<=this.jingweidu.lng_max && r.point.lng>=this.jingweidu.lng_min && r.point.lat<=this.jingweidu.lat_max && r.point.lat>=this.jingweidu.lat_min)
+        if(r.point.lng<=lng_max && r.point.lng>=lng_min && r.point.lat<=lat_max && r.point.lat>=lat_min)
         {
-          const toast1 = this.toastCtrl.create({
-            message: '上课地点定位成功！',
-            duration: 4000
-          });
-          toast1.present();
+          //alert("上课地点定位成功！");
+          success.present();
           document.getElementById("commit").removeAttribute("disabled");
         }
         else{
-          const toast1 = this.toastCtrl.create({
-            message: '上课地点定位失败！',
-            duration: 4000
-          });
-          toast1.present();
+          //alert("上课地点定位失败！");
+          fail.present();
+          //document.getElementById("commit").removeAttribute("disabled");
         }
         //document.getElementById("result").innerHTML = r.point.lng + ',' + r.point.lat;
       }
       else {
-        //document.getElementById("result").innerHTML = this.getStatus();
+        alert(this.getStatus());
       }
     },{enableHighAccuracy: true})
   }
@@ -105,6 +112,18 @@ export class kaoqinPage {
     }
   }
   cordovamap() {
+    var lng_max = this.jingweidu.lng_max;
+    var lng_min = this.jingweidu.lng_min;
+    var lat_max = this.jingweidu.lat_max;
+    var lat_min = this.jingweidu.lat_min;
+    var success = this.toastCtrl.create({
+      message: "上课地点定位成功！",
+      duration: 4000
+    });
+    var fail = this.toastCtrl.create({
+      message: "上课地点定位失败！",
+      duration: 4000
+    });
     this.geolocation.getCurrentPosition().then((resp) => {
       var lat = resp.coords.latitude+0.00401;
       var lng = resp.coords.longitude+0.01121;
@@ -115,21 +134,14 @@ export class kaoqinPage {
       var mk = new BMap.Marker(point);
       map.addOverlay(mk);
       map.panTo(point);
-      if(lng<=this.jingweidu.lng_max && lng>=this.jingweidu.lng_min && lat<=this.jingweidu.lat_max && lat>=this.jingweidu.lat_min)
-        {
-          const toast1 = this.toastCtrl.create({
-            message: '上课地点定位成功！',
-            duration: 4000
-          });
-          toast1.present();
-          document.getElementById("commit").removeAttribute("disabled");
-        }
+      if(lng<=lng_max && lng>=lng_min && lat<=lat_max && lat>=lat_min)
+      {
+        success.present();
+        document.getElementById("commit").removeAttribute("disabled");
+      }
       else{
-        const toast1 = this.toastCtrl.create({
-          message: '上课地点定位失败！',
-          duration: 4000
-        });
-        toast1.present();
+        fail.present();
+        //document.getElementById("commit").removeAttribute("disabled");
       }
     }).catch((error) => {
       //document.getElementById("result2").innerHTML = error;
