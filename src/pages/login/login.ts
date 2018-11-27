@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,ToastController } from 'ionic-angular';
+import { NavController,ToastController,Platform } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { Page9Page } from '../page9/page9';
 //import { LoginPage } from '../login/login';
@@ -26,7 +26,23 @@ const httpOptions = {
 })
 export class LoginPage {
   public username: string;
-  constructor(public app: App, public navCtrl: NavController,public http: HttpClient, public toastCtrl: ToastController) {
+  constructor(public platform: Platform,public app: App, public navCtrl: NavController,public http: HttpClient, public toastCtrl: ToastController) {
+  }
+  test(){
+    if(this.platform.is("IOS")){
+      const toast = this.toastCtrl.create({
+        message: 'ios',
+        duration: 3000
+      });
+      toast.present();
+    }
+    else if(this.platform.is("cordova")){
+      const toast = this.toastCtrl.create({
+        message: 'cordova',
+        duration: 3000
+      });
+      toast.present();
+    }
   }
   goToSignup(params){
     if (!params) params = {};

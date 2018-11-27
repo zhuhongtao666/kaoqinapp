@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Events,ToastController} from 'ionic-angular';
+import { NavController, NavParams, Events,ToastController,Platform} from 'ionic-angular';
 import { Page7Page } from '../page7/page7';
 //import { Page2Page } from '../page2/page2';
 import { Page10Page } from '../page10/page10';
@@ -23,12 +23,41 @@ export class kaoqinPage {
   public test: any;
   public username: string;
   photo: string;
+  public place:any;
+  public jingweidu:any;
 
-  constructor(public toastCtrl: ToastController,public http: HttpClient,public navCtrl: NavController, private camera: Camera, private geolocation: Geolocation, public navparams: NavParams, public events: Events) {
+  constructor(public platform: Platform,public toastCtrl: ToastController,public http: HttpClient,public navCtrl: NavController, private camera: Camera, private geolocation: Geolocation, public navparams: NavParams, public events: Events) {
   }
   ionViewWillEnter() {
-    this.loadmap();
+    this.map2();
     this.username = Appconfig.getusername();
+  }
+  map2(){
+    if(this.place == 'ces'){
+      this.jingweidu = {
+        "lng_max":121.40680,
+        "lng_min":121.40606,
+        "lat_max":31.32335,
+        "lat_min":31.32299
+        };
+      if(this.platform.is("ios")){
+        this.cordovamap();
+      }
+      else if(this.platform.is("android")){
+        this.loadmap();
+      }
+      else{
+        this.loadmap();
+      }
+    }
+    else{
+      const toast1 = this.toastCtrl.create({
+        message: "请选择上课地点！",
+        duration: 2000
+      });
+      toast1.present();
+    }
+    
   }
   loadmap(){
     var map = new BMap.Map("map_container2");
@@ -41,11 +70,26 @@ export class kaoqinPage {
         var mk = new BMap.Marker(r.point);
         map.addOverlay(mk);
         map.panTo(r.point);
-        //alert(r.point.lng+','+r.point.lat);
-        document.getElementById("result").innerHTML = r.point.lng + ',' + r.point.lat;
+        if(r.point.lng<=this.jingweidu.lng_max && r.point.lng>=this.jingweidu.lng_min && r.point.lat<=this.jingweidu.lat_max && r.point.lat>=this.jingweidu.lat_min)
+        {
+          const toast1 = this.toastCtrl.create({
+            message: '上课地点定位成功！',
+            duration: 4000
+          });
+          toast1.present();
+          document.getElementById("commit").removeAttribute("disabled");
+        }
+        else{
+          const toast1 = this.toastCtrl.create({
+            message: '上课地点定位失败！',
+            duration: 4000
+          });
+          toast1.present();
+        }
+        //document.getElementById("result").innerHTML = r.point.lng + ',' + r.point.lat;
       }
       else {
-        document.getElementById("result").innerHTML = this.getStatus();
+        //document.getElementById("result").innerHTML = this.getStatus();
       }
     },{enableHighAccuracy: true})
   }
@@ -62,19 +106,33 @@ export class kaoqinPage {
   }
   cordovamap() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      document.getElementById("result").innerHTML = resp.coords.latitude + ',' + resp.coords.longitude;
-
-      var map = new BMap.Map("map_container");
-      map.centerAndZoom(new BMap.Point(116.331398,39.897445),11);
-      map.enableScrollWheelZoom(true);
-
-      map.clearOverlays();
-      var new_point = new BMap.Point(resp.coords.longitude,resp.coords.latitude);
-      var marker = new BMap.Marker(new_point);
-      map.addOverlay(marker);
-      map.panTo(new_point);
+      var lat = resp.coords.latitude+0.00401;
+      var lng = resp.coords.longitude+0.01121;
+      //document.getElementById("result").innerHTML = resp.coords.longitude + ',' + resp.coords.latitude;
+      var map = new BMap.Map("map_container2");
+      var point = new BMap.Point(lng,lat);
+      map.centerAndZoom(point,14);
+      var mk = new BMap.Marker(point);
+      map.addOverlay(mk);
+      map.panTo(point);
+      if(lng<=this.jingweidu.lng_max && lng>=this.jingweidu.lng_min && lat<=this.jingweidu.lat_max && lat>=this.jingweidu.lat_min)
+        {
+          const toast1 = this.toastCtrl.create({
+            message: '上课地点定位成功！',
+            duration: 4000
+          });
+          toast1.present();
+          document.getElementById("commit").removeAttribute("disabled");
+        }
+      else{
+        const toast1 = this.toastCtrl.create({
+          message: '上课地点定位失败！',
+          duration: 4000
+        });
+        toast1.present();
+      }
     }).catch((error) => {
-      document.getElementById("result").innerHTML = error;
+      //document.getElementById("result2").innerHTML = error;
     })
     
   }
@@ -100,65 +158,74 @@ export class kaoqinPage {
     });
   }
   kaoqin() {
-    let pathurl:string = 'http://118.24.76.130:8000/kaoqin1v1';
-    let pramas = JSON.stringify({
-      uid: Appconfig.getuid(),
-      img: this.photo
-    });
-    this.http.post(pathurl,pramas,httpOptions).subscribe( (data) => {
-      if(data['code'] == 1){
-        const toast1 = this.toastCtrl.create({
-          message: '考勤成功！',
-          duration: 1000
-        });
-        toast1.present();
-        var str = data['kqinfo'];
-        var arr = str.split("|");
-        var arr2 = arr[5].split(":");
-        if(arr2.length <= 2){
-          const toast = this.toastCtrl.create({
-            message: '上课考勤成功，请记得下课考勤！',
-            duration: 8000
-          });
-          toast.present();
-        }
-        else{
-          const toast = this.toastCtrl.create({
-            message: '下课考勤成功！',
+    if(this.photo == null){
+      const toast1 = this.toastCtrl.create({
+        message: '请上传照片！',
+        duration: 2000
+      });
+      toast1.present();
+    }
+    else{
+      let pathurl:string = 'http://118.24.76.130:8000/kaoqin1v1';
+      let pramas = JSON.stringify({
+        uid: Appconfig.getuid(),
+        img: this.photo
+      });
+      this.http.post(pathurl,pramas,httpOptions).subscribe( (data) => {
+        if(data['code'] == 1){
+          const toast1 = this.toastCtrl.create({
+            message: '考勤成功！',
             duration: 1000
           });
-          toast.present();
+          toast1.present();
+          var str = data['kqinfo'];
+          var arr = str.split("|");
+          var arr2 = arr[5].split(":");
+          if(arr2.length <= 2){
+            const toast = this.toastCtrl.create({
+              message: '上课考勤成功，请记得下课考勤！',
+              duration: 8000
+            });
+            toast.present();
+          }
+          else{
+            const toast = this.toastCtrl.create({
+              message: '下课考勤成功！',
+              duration: 1000
+            });
+            toast.present();
+          }
         }
-      }
-      else if(data['code'] == 2){
-        const toast2 = this.toastCtrl.create({
-          message: '考勤成功，但使用了库中重复的照片！',
-          duration: 2000
-        });
-        toast2.present();
-      }
-      else if(data['code'] == 3){
-        const toast3 = this.toastCtrl.create({
-          message: '图像解析错误！',
-          duration: 2000
-        });
-        toast3.present();
-      }
-      else if(data['code'] == 4){
-        const toast4 = this.toastCtrl.create({
-          message: '由于用户未完成录入，考勤失败！',
-          duration: 2000
-        });
-        toast4.present();
-      }
-      else{
-        const toast0 = this.toastCtrl.create({
-          message: '考勤失败，不匹配录成功！',
-          duration: 2000
-        });
-        toast0.present();
-      }
-    })
+        else if(data['code'] == 2){
+          const toast2 = this.toastCtrl.create({
+            message: '考勤成功，但使用了库中重复的照片！',
+            duration: 2000
+          });
+          toast2.present();
+        }
+        else if(data['code'] == 3){
+          const toast3 = this.toastCtrl.create({
+            message: '图像解析错误！',
+            duration: 2000
+          });
+          toast3.present();
+        }
+        else if(data['code'] == 4){
+          const toast4 = this.toastCtrl.create({
+            message: '由于用户未完成录入，考勤失败！',
+            duration: 2000
+          });
+          toast4.present();
+        }
+        else{
+          const toast0 = this.toastCtrl.create({
+            message: '考勤失败，不匹配录成功！',
+            duration: 2000
+          });
+          toast0.present();
+        }
+      });
+    }
   }
   goToPage7(params){
     if (!params) params = {};

@@ -23,7 +23,7 @@ export class Page4Page {
   constructor(public navCtrl: NavController) {
   }
   ionViewDidLoad() {
-    this.table();
+    //this.table();
     this.username = Appconfig.getusername();
     this.tel = Appconfig.gettel();
     this.sfz = Appconfig.getsfz();
