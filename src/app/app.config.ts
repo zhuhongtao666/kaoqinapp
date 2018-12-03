@@ -8,6 +8,7 @@ export class Appconfig {
     public static uid:number;
     public static truename:string;
     public static gonghao:string;
+    public static user_group:any;
 
     public static getusername() {
         return this.username;
@@ -57,6 +58,12 @@ export class Appconfig {
     public static setgonghao(gonghao) {
         this.gonghao = gonghao;
     }
+    public static getusergroup() {
+        return this.user_group;
+    }
+    public static setusergroup(user_group) {
+        this.user_group = user_group;
+    }
     public static clear(){
         this.username = null;
         this.uimg = null;
@@ -66,5 +73,6 @@ export class Appconfig {
         this.utype = null;
         this.truename = null;
         this.gonghao = null;
+        this.user_group = null;
     }
 }

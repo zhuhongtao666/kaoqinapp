@@ -75,6 +75,7 @@ export class LoginPage {
         Appconfig.setuid(data['uid']);
         Appconfig.setgonghao(data['gonghao']);
         Appconfig.settruename(data['truename']);
+        Appconfig.setusergroup(data['user_group']);
         if(data['utype'] == 1){
           this.navCtrl.setRoot(TabsControllerPage);
         }

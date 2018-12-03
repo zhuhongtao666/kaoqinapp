@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -18,14 +18,36 @@
   <hr>
   <form id="page2-form5">
     <ion-item id="page2-select2">
-      <ion-label>
-        上课地点
-      </ion-label>
-      <ion-select [(ngModel)]="place" name="place">
-        <ion-option value="ces">
-          计算机楼
-        </ion-option>
-      </ion-select>
+      <div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>课程</h2>
+            </ion-col>
+            <ion-col>
+                <select [(ngModel)]="place" on-click="getclassroom()" name="place" id="place" style="width:200px;"> 
+                    <option value="">
+                      请选择
+                    </option>
+                </select>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-item>
+    <ion-item>
+      <div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>上课地点</h2>
+            </ion-col>
+            <ion-col>
+              <h2 id="classroom"></h2>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
     </ion-item>
     <hr>
     <div id="map_container2" style="width: 300px;height: 300px"></div>
@@ -33,7 +55,7 @@
         <h4 id="result"></h4>
     </div>
     <hr>
-    <button id="page2-button7" ion-button color="balanced" block on-click="map2()">
+    <button id="baidumap" ion-button color="balanced" block on-click="map2()">
       重新定位
     </button>
     <button id="commit" ion-button color="calm" block on-click="kaoqin()" disabled="true">
