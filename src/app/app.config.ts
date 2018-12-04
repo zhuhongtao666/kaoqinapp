@@ -9,8 +9,8 @@ export class Appconfig {
     public static truename:string;
     public static gonghao:string;
     public static user_group:any;
-    public static x:number;
-    public static y:number;
+    public static class:any;
+    public static classroom:any;
 
     public static getusername() {
         return this.username;
@@ -66,17 +66,17 @@ export class Appconfig {
     public static setusergroup(user_group) {
         this.user_group = user_group;
     }
-    public static getx() {
-        return this.x;
+    public static getclass() {
+        return this.class;
     }
-    public static setx(x) {
-        this.x = x;
+    public static setclass(class2) {
+        this.class = class2;
     }
-    public static gety() {
-        return this.y;
+    public static getclassroom() {
+        return this.classroom;
     }
-    public static sety(y) {
-        this.y = y;
+    public static setclassroom(classroom) {
+        this.classroom = classroom;
     }
     public static clear(){
         this.username = null;
@@ -88,7 +88,7 @@ export class Appconfig {
         this.truename = null;
         this.gonghao = null;
         this.user_group = null;
-        this.x = null;
-        this.y = null;
+        this.class = null;
+        this.classroom = null;
     }
 }
