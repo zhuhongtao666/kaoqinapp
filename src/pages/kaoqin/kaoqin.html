@@ -25,11 +25,20 @@
               <h2>课程</h2>
             </ion-col>
             <ion-col>
-                <select [(ngModel)]="place" on-click="getclassroom()" name="place" id="place" style="width:200px;"> 
-                    <option value="">
-                      请选择
-                    </option>
-                </select>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                      <select [(ngModel)]="place" name="place" id="place" style="width:200px;height:30px;"> 
+                          <option value="">
+                            请选择
+                          </option>
+                      </select>
+                  </ion-col>
+                  <ion-col>
+                      <button ion-button block color="balanced" style="width:100px;height:30px;" on-click="getclassroom()">确认</button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -49,6 +58,7 @@
         </ion-grid>
       </div>
     </ion-item>
+    
     <hr>
     <div id="map_container2" style="width: 300px;height: 300px"></div>
     <div>
@@ -58,7 +68,7 @@
     <button id="baidumap" ion-button color="balanced" block on-click="map2()">
       重新定位
     </button>
-    <button id="commit" ion-button color="calm" block on-click="kaoqin()" disabled="true">
+    <button id="commit" ion-button color="calm" block onchange="kaoqin()" disabled="true">
       确定考勤
     </button>
   </form>

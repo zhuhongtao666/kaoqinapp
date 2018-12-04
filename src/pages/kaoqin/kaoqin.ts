@@ -33,7 +33,7 @@ export class kaoqinPage {
 
   constructor(public platform: Platform,public toastCtrl: ToastController,public http: HttpClient,public navCtrl: NavController, private camera: Camera, private geolocation: Geolocation, public navparams: NavParams, public events: Events) {
   }
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     this.cordovamap();
     this.username = Appconfig.getusername();
     this.usergroup = Appconfig.getusergroup();
@@ -50,6 +50,11 @@ export class kaoqinPage {
      if(this.place ==  this.usergroup[i].groupname){
        this.classroom = this.usergroup[i].dwname;
        console.log(this.classroom);
+       document.getElementById("classroom").innerHTML = this.classroom;
+       break;
+     }
+     else{
+       this.classroom = '请选择课程';
        document.getElementById("classroom").innerHTML = this.classroom;
      }
    }
