@@ -269,7 +269,7 @@ export class kaoqinPage {
           this.dis = data['dis'];
           //document.getElementById("test1").innerHTML = this.dis;
           //toast1.present();
-          if(this.dis <= 0.5){
+          if(this.dis <= 1){
             var str = data['kqinfo'];
             var arr = str.split("|");
             var arr2 = arr[5].split(":");
