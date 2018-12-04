@@ -49,6 +49,7 @@ export class kaoqinPage {
    for(var i=0;i<this.usergroup.length;i++){
      if(this.place ==  this.usergroup[i].groupname){
        this.classroom = this.usergroup[i].dwname;
+       console.log(this.place);
        console.log(this.classroom);
        document.getElementById("classroom").innerHTML = this.classroom;
        break;
@@ -163,9 +164,7 @@ export class kaoqinPage {
       var lng = resp.coords.longitude+0.01121;
       x = lng;
       y = lat;
-      Appconfig.setx(lng);
-      Appconfig.sety(lat);
-      
+
       //document.getElementById("result").innerHTML = resp.coords.longitude + ',' + resp.coords.latitude;
       var map = new BMap.Map("map_container2");
       var point = new BMap.Point(lng,lat);
@@ -181,6 +180,8 @@ export class kaoqinPage {
       
       this.gpsx = x;
       this.gpsy = y;
+      console.log(this.gpsx);
+      console.log(this.gpsy);
       
      // }
      // else{
@@ -214,15 +215,10 @@ export class kaoqinPage {
     });
   }
   kaoqintest(){
-    var groupid:string;
-    var dwid:string;
-    for(var i=0;i<this.usergroup.length;i++){
-      if(this.place == this.usergroup[i].groupname){
-        dwid=this.usergroup[i].dwid;
-        groupid=this.usergroup[i].groupid;
-      }
-    }
-    alert(Appconfig.getuid()+" "+groupid+" "+dwid+" "+this.gpsx.toString()+" "+this.gpsy.toString());
+    console.log(Appconfig.getclass());
+    console.log(Appconfig.getclassroom());
+    console.log(this.gpsx);
+    console.log(this.gpsy);
   }
   kaoqin() {
     //document.getElementById("test1").innerHTML = this.gpsx;
@@ -260,6 +256,10 @@ export class kaoqinPage {
       toast1.present();
     }
     else{
+      console.log(dwid);
+      console.log(groupid);
+      console.log(this.gpsx);
+      console.log(this.gpsy);
       let pathurl:string = 'http://118.24.76.130:8000/kaoqin1v1';
       let pramas = JSON.stringify({
         uid: Appconfig.getuid(),
