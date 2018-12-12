@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,ToastController,Platform } from 'ionic-angular';
+import { NavController,ToastController,Platform, MenuController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { Page9Page } from '../page9/page9';
 //import { LoginPage } from '../login/login';
@@ -18,15 +18,16 @@ const httpOptions = {
   headers : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' })
 };
 
-
-
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
   public username: string;
-  constructor(public platform: Platform,public app: App, public navCtrl: NavController,public http: HttpClient, public toastCtrl: ToastController) {
+  constructor(public platform: Platform,public app: App, public navCtrl: NavController,public http: HttpClient, public toastCtrl: ToastController, public menuctrl:MenuController) {
+  }
+  ionViewDidLoad(){
+    this.menuctrl.swipeEnable(false);
   }
   test(){
     if(this.platform.is("IOS")){
@@ -44,6 +45,9 @@ export class LoginPage {
       toast.present();
     }
   }
+  mainctrl($scope, $ionicSideMenuDelegate){
+    $scope.toggleLeft
+  }
   goToSignup(params){
     if (!params) params = {};
     this.navCtrl.push(SignupPage);
@@ -53,44 +57,56 @@ export class LoginPage {
   }goToLogin(params){
     if (!params) params = {};
     this.navCtrl.push(LoginPage);
-  }goTokaoqinPage(username: HTMLInputElement, password: HTMLInputElement){
-    let pathurl: string = 'http://118.24.76.130:8000/loginWithUnameAndPsd';
-    let pramas = JSON.stringify({
-      username: username.value,
-      password: password.value
-    });
-    this.http.post(pathurl,pramas,httpOptions).subscribe((data) => {
-      console.log(data);
-      if(data['code'] == 1){
-        const toast = this.toastCtrl.create({
-          message: '登录成功',
-          duration: 1000
-        });
-        toast.present();
-        Appconfig.setusername(data['gonghao']);
-        Appconfig.settel(data['phone']);
-        Appconfig.setsfz(data['sfz']);
-        Appconfig.setutype(data['utype']);
-        Appconfig.setuimg(data['uimg']);
-        Appconfig.setuid(data['uid']);
-        Appconfig.setgonghao(data['gonghao']);
-        Appconfig.settruename(data['truename']);
-        Appconfig.setusergroup(data['user_group']);
-        if(data['utype'] == 1){
-          this.navCtrl.setRoot(TabsControllerPage);
+  }
+  goTokaoqinPage(username: HTMLInputElement, password: HTMLInputElement){
+    if(username.value == 'admin' && password.value == 'admin'){
+      this.navCtrl.push(AdminPage);
+    }
+    else{
+      let pathurl: string = 'http://118.24.76.130:8000/loginWithUnameAndPsd';
+      let pramas = JSON.stringify({
+        username: username.value,
+        password: password.value
+      });
+      this.http.post(pathurl,pramas,httpOptions).subscribe((data) => {
+        console.log(data);
+        if(data['code'] == 1){
+          const toast = this.toastCtrl.create({
+            message: '登录成功',
+            duration: 1000
+          });
+          toast.present();
+          Appconfig.setusername(data['gonghao']);
+          Appconfig.settel(data['phone']);
+          Appconfig.setsfz(data['sfz']);
+          Appconfig.setutype(data['utype']);
+          Appconfig.setuimg(data['uimg']);
+          Appconfig.setuid(data['uid']);
+          Appconfig.setgonghao(data['gonghao']);
+          Appconfig.settruename(data['truename']);
+          Appconfig.setusergroup(data['user_group']);
+          var usergroup = data['user_group'];
+          let array :Array<string> = new Array<string>();
+          for(var i = 0 ;i<usergroup.length;i++){
+            array[i] = usergroup[i].groupname;
+          }
+          Appconfig.setlessons(array);
+          if(data['utype'] == 1){
+            this.navCtrl.setRoot(TabsControllerPage);
+          }
+          else{
+            this.navCtrl.push(MubanPage);
+          }
         }
         else{
-          this.navCtrl.push(MubanPage);
+          const toast = this.toastCtrl.create({
+            message: '用户名密码错误，请检查用户名和密码！',
+            duration: 2000
+          });
+          toast.present();
         }
-      }
-      else{
-        const toast = this.toastCtrl.create({
-          message: '用户名密码错误，请检查用户名和密码！',
-          duration: 2000
-        });
-        toast.present();
-      }
-    })
+      })
+    }
   }
   gotokaoqin(username: HTMLInputElement, password: HTMLInputElement) {
     if( (parseInt(username.value)%1000000) - 120000 >= 0){

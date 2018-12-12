@@ -18,45 +18,14 @@
   <hr>
   <form id="page2-form5">
     <ion-item id="page2-select2">
-      <div>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <h2>课程</h2>
-            </ion-col>
-            <ion-col>
-              <ion-grid>
-                <ion-row>
-                  <ion-col>
-                      <select [(ngModel)]="place" name="place" id="place" style="width:200px;height:30px;"> 
-                          <option value="">
-                            请选择
-                          </option>
-                      </select>
-                  </ion-col>
-                  <ion-col>
-                      <button ion-button block color="balanced" style="width:100px;height:30px;" on-click="getclassroom()">确认</button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
+      <ion-label>课程</ion-label>
+      <ion-select [(ngModel)]="place" name="place" [compareWith]="test2">
+        <ion-option *ngFor="let lesson of lessons" [value]="lesson">{{ lesson }}</ion-option>
+      </ion-select>
     </ion-item>
-    <ion-item>
-      <div>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <h2>上课地点</h2>
-            </ion-col>
-            <ion-col>
-              <h2 id="classroom"></h2>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
+    <ion-item detail-push>
+      <ion-label>上课地点</ion-label>
+      <div item-content id="classroom"></div>
     </ion-item>
     
     <hr>
@@ -65,6 +34,7 @@
         <h4 id="result"></h4>
     </div>
     <hr>
+    <h1 id="test3"></h1>
     <button id="baidumap" ion-button color="balanced" block on-click="map2()">
       重新定位
     </button>

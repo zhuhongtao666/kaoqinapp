@@ -9,8 +9,7 @@ export class Appconfig {
     public static truename:string;
     public static gonghao:string;
     public static user_group:any;
-    public static class:any;
-    public static classroom:any;
+    public static lessons:any;
 
     public static getusername() {
         return this.username;
@@ -66,17 +65,11 @@ export class Appconfig {
     public static setusergroup(user_group) {
         this.user_group = user_group;
     }
-    public static getclass() {
-        return this.class;
+    public static getlessons() {
+        return this.lessons;
     }
-    public static setclass(class2) {
-        this.class = class2;
-    }
-    public static getclassroom() {
-        return this.classroom;
-    }
-    public static setclassroom(classroom) {
-        this.classroom = classroom;
+    public static setlessons(lessons) {
+        this.lessons = lessons;
     }
     public static clear(){
         this.username = null;
@@ -88,7 +81,6 @@ export class Appconfig {
         this.truename = null;
         this.gonghao = null;
         this.user_group = null;
-        this.class = null;
-        this.classroom = null;
+        this.lessons = null;
     }
 }

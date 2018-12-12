@@ -1,14 +1,15 @@
 <ion-menu [content]="mainContent">
   <ion-header>
-    <ion-toolbar>
+    <ion-navbar>
       <ion-title>
         菜单栏
       </ion-title>
-    </ion-toolbar>
+    </ion-navbar>
   </ion-header>
-  <ion-content id="side-menu21">
+  <ion-content id="side-menu21" padding>
     <ion-list>
-      <button ion-button on-click="exit()" style="left:100px;">注销用户</button>
+      <button ion-item (click)="mygroup()">我的群组</button>
+      <button ion-item (click)="exit()" >注销用户</button>
     </ion-list>
   </ion-content>
 </ion-menu>

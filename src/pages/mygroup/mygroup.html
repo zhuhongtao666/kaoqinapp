@@ -1,0 +1,22 @@
+<!--
+  Generated template for the MygroupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>我的群组</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h1>我的群组</h1>
+  <ion-list>
+      <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">{{ item }}</button>
+  </ion-list>
+  <button ion-button block (click)="joingroup()">加入群组</button>
+</ion-content>

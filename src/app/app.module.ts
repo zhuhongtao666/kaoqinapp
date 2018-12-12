@@ -21,6 +21,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminPage } from '../pages/admin/admin';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { MubanPage } from '../pages/muban/muban';
+import { ListPage } from '../pages/list/list';
+import { ModalPage } from '../pages/modal/modal';
+import { MygroupPage } from '../pages/mygroup/mygroup';
+import { GroupinfoPage } from '../pages/groupinfo/groupinfo';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,10 @@ import { MubanPage } from '../pages/muban/muban';
     kaoqinPage,
     AdminPage,
     MubanPage,
+    ListPage,
+    ModalPage,
+    MygroupPage,
+    GroupinfoPage,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +65,10 @@ import { MubanPage } from '../pages/muban/muban';
     kaoqinPage,
     AdminPage,
     MubanPage,
+    ListPage,
+    ModalPage,
+    MygroupPage,
+    GroupinfoPage,
   ],
   providers: [
     StatusBar,

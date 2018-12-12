@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Appconfig } from '../../app/app.config';
+import { ListPage } from '../list/list';
 
 /**
  * Generated class for the AdminPage page.
@@ -36,6 +37,9 @@ export class AdminPage {
       this.utype = '管理员';
     }
     this.list();
+  }
+  gotolist() {
+    this.navCtrl.push(ListPage);
   }
   select () {
     var item = [

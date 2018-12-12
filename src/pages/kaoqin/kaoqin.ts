@@ -24,6 +24,7 @@ export class kaoqinPage {
   public username: string;
   photo: string;
   public place:any;
+  public lessons:any;
   public jingweidu:any;
   public usergroup:any;
   public classroom:any;
@@ -37,7 +38,25 @@ export class kaoqinPage {
     this.cordovamap();
     this.username = Appconfig.getusername();
     this.usergroup = Appconfig.getusergroup();
-    this.getselect();
+    let array :Array<string> = new Array<string>();
+    for(var i = 0 ;i<this.usergroup.length;i++){
+      array[i] = this.usergroup[i].groupname;
+    }
+    this.lessons = array;
+    //this.getselect();
+  }
+  test2(l1:string,l2:string){
+    //var lessons = Appconfig.getlessons();
+    var usergroup = Appconfig.getusergroup();
+    for(var i=0;i<usergroup.length;i++){
+      if(l2 == usergroup[i].groupname){
+        document.getElementById("classroom").innerHTML = usergroup[i].dwname;
+        break;
+      }
+      else{
+        document.getElementById("classroom").innerHTML = '请选择课程！';
+      }
+    }
   }
   getselect(){
     var select = <HTMLSelectElement>document.getElementById("place");
@@ -156,12 +175,18 @@ export class kaoqinPage {
       duration: 4000
     });
     var fail = this.toastCtrl.create({
-      message: "地点定位失败！",
+      message: "GPS定位失败,采用baidumap！",
       duration: 4000
     });
-    this.geolocation.getCurrentPosition().then((resp) => {
+    var geo_options = {
+      enableHighAccuracy: true, 
+      maximumAge        : 0, 
+      timeout           : Infinity
+    };
+    this.geolocation.getCurrentPosition(geo_options).then((resp) => {
       var lat = resp.coords.latitude+0.00401;
       var lng = resp.coords.longitude+0.01121;
+      //document.getElementById("test3").innerHTML = lat.toString()+" "+lng.toString();
       x = lng;
       y = lat;
 
@@ -190,6 +215,7 @@ export class kaoqinPage {
       //}
     }).catch((error) => {
       fail.present();
+      this.loadmap();
       //document.getElementById("result2").innerHTML = error;
     });
   }
@@ -215,8 +241,6 @@ export class kaoqinPage {
     });
   }
   kaoqintest(){
-    console.log(Appconfig.getclass());
-    console.log(Appconfig.getclassroom());
     console.log(this.gpsx);
     console.log(this.gpsy);
   }

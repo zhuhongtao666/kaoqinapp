@@ -7,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
 import { Appconfig } from '../app/app.config';
+import { MygroupPage } from '../pages/mygroup/mygroup';
 
 
 @Component({
@@ -30,5 +31,8 @@ export class MyApp {
   exit(){
     this.navCtrl.push(LoginPage);
     Appconfig.clear();
+  }
+  mygroup(){
+    this.navCtrl.push(MygroupPage);
   }
 }
