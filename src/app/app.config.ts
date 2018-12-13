@@ -10,6 +10,7 @@ export class Appconfig {
     public static gonghao:string;
     public static user_group:any;
     public static lessons:any;
+    public static mygroup:string;
 
     public static getusername() {
         return this.username;
@@ -71,6 +72,12 @@ export class Appconfig {
     public static setlessons(lessons) {
         this.lessons = lessons;
     }
+    public static getmygroup() {
+        return this.mygroup;
+    }
+    public static setmygroup(mygroup) {
+        this.mygroup = mygroup;
+    }
     public static clear(){
         this.username = null;
         this.uimg = null;
@@ -82,5 +89,6 @@ export class Appconfig {
         this.gonghao = null;
         this.user_group = null;
         this.lessons = null;
+        this.mygroup = null;
     }
 }

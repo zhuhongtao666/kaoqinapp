@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -28,39 +28,20 @@
             <h5>手机号：{{ tel }}</h5>
             <h5>身份证：{{ sfz }}</h5>
             <h5>用户身份：{{ utype }}</h5>
+            <h5>课程：{{ classs }}</h5>
           </ion-col>
         </ion-row>
       </ion-grid>
     </div>
     <div class="spacer" style="height:10px;" id="admin-spacer"></div>
     <hr>
-    <table id="table_all">
-      <tr>
-        <th>序号</th>
-        <th>学号</th>
-        <th>姓名</th>
-        <th>当天状态</th>
-        <th>操作</th>
-      </tr>
-      <td>1</td>
-      <td>15121991</td>
-      <td>zht</td>
-      <td>0</td>
-      <td><button ion-button on-click="changecode()">签到</button><button ion-button on-click="xq()">详情</button></td>
-    </table>
     <ion-item>
       <ion-label>查找日期</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="time"></ion-datetime>
     </ion-item>
-    <button ion-button on-click="select()">查找</button>
-    <table id="table_timeselect">
-      <tr>
-        <th>序号</th>
-        <th>学号</th>
-        <th>姓名</th>
-        <th>状态</th>
-      </tr>
-    </table>
+    <button ion-button block on-click="select()">查找</button>
+    
     <hr>
     <button ion-button block on-click="gotolist()">查看名单</button>
+    <button ion-button block on-click="exit()">退出登录</button>
 </ion-content>

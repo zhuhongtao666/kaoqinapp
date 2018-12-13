@@ -57,6 +57,7 @@ export class kaoqinPage {
         document.getElementById("classroom").innerHTML = '请选择课程！';
       }
     }
+    return l1===l2;
   }
   getselect(){
     var select = <HTMLSelectElement>document.getElementById("place");
@@ -113,11 +114,11 @@ export class kaoqinPage {
     //var lat_min = this.jingweidu.lat_min;
     var success = this.toastCtrl.create({
       message: "地点定位成功！",
-      duration: 4000
+      duration: 2000
     });
     var fail = this.toastCtrl.create({
       message: "地点定位失败！",
-      duration: 4000
+      duration: 2000
     });
     var x,y:number;
     var map = new BMap.Map("map_container2");

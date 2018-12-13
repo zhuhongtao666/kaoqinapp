@@ -7,12 +7,33 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>groupinfo</ion-title>
+    <ion-title>群组信息</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <h1>群组信息</h1>
+  <hr>
+  <form>
+    <ion-item>
+      <ion-label>群组</ion-label>
+      <div item-content id="class"></div>
+    </ion-item>
+    <ion-item>
+      <ion-label>身份</ion-label>
+      <div item-content id="utype"></div>
+    </ion-item>
+    <ion-item>
+      <ion-label>上课地点</ion-label>
+      <div item-content id="place"></div>
+    </ion-item>
+    <ion-item>
+      <ion-label>上课时间</ion-label>
+      <div item-content id="time"></div>
+    </ion-item>
+    <button ion-button block (click)="exitgroup()">退出群组</button>
+    <button ion-button block (click)="back()">返回</button>
+  </form>
 </ion-content>

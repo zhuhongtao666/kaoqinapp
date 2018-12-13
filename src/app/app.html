@@ -7,6 +7,14 @@
     </ion-navbar>
   </ion-header>
   <ion-content id="side-menu21" padding>
+    <div (click)="getimgandname()">
+      <div align="center">
+        <img src="assets/img/click.png" id="myphoto" style="height:150px;width:150px;border-radius: 150px;" />
+      </div>
+      <div align="center">
+        <h3 id="name"></h3>
+      </div>
+    </div>
     <ion-list>
       <button ion-item (click)="mygroup()">我的群组</button>
       <button ion-item (click)="exit()" >注销用户</button>

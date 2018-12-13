@@ -27,6 +27,10 @@ export class MygroupPage {
   itemSelected(item){
     const modal = this.modalCtrl.create(GroupinfoPage);
     modal.present();
+    Appconfig.setmygroup(item);
+  }
+  joingroup(){
+    
   }
 
 }

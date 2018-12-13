@@ -25,12 +25,23 @@ export class MyApp {
       splashScreen.hide();
     });
     if(this.isLogin != true){
-      this.rootPage = LoginPage
+      this.rootPage = LoginPage;
     }
+  }
+  loginOnSuccess(){
+    this.getimgandname();
+  }
+  getimgandname(){
+    var image = (<HTMLInputElement>document.getElementById("myphoto"));
+    image.src = Appconfig.getuimg();
+    document.getElementById("name").innerHTML = Appconfig.getusername();
   }
   exit(){
     this.navCtrl.push(LoginPage);
     Appconfig.clear();
+    var image = (<HTMLInputElement>document.getElementById("myphoto"));
+    image.src = 'assets/img/others.png';
+    document.getElementById("name").innerHTML = '请登录！';
   }
   mygroup(){
     this.navCtrl.push(MygroupPage);
