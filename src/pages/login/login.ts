@@ -13,6 +13,7 @@ import { App } from 'ionic-angular';
 import { Appconfig } from '../../app/app.config';
 import { AdminPage } from '../admin/admin';
 import { MubanPage } from '../muban/muban';
+import { AdmincardsPage } from '../admincards/admincards';
 
 const httpOptions = {
   headers : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' })
@@ -60,7 +61,7 @@ export class LoginPage {
   }
   goTokaoqinPage(username: HTMLInputElement, password: HTMLInputElement){
     if(username.value == 'admin' && password.value == 'admin'){
-      this.navCtrl.push(AdminPage);
+      this.navCtrl.push(AdmincardsPage);
     }
     else{
       let pathurl: string = 'http://118.24.76.130:8000/loginWithUnameAndPsd';

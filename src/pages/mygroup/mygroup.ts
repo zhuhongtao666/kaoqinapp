@@ -16,13 +16,27 @@ import { GroupinfoPage } from '../groupinfo/groupinfo';
   templateUrl: 'mygroup.html',
 })
 export class MygroupPage {
-  public items:any;
+  items;
+  searchQuery;
   constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
+    this.initializeItems();
+    this.searchQuery='';
   }
 
   ionViewDidLoad() {
+  }
+  initializeItems(){
     var lessons = Appconfig.getlessons();
     this.items = lessons;
+  }
+  getItems(ev){
+    this.initializeItems();
+    var val = ev.target.value;
+    if(val && val.trim()!= ''){
+      this.items = this.items.filter((v)=>{
+        return (v.toLowerCase().indexOf(val.toLowerCase())>-1);
+      })
+    }
   }
   itemSelected(item){
     const modal = this.modalCtrl.create(GroupinfoPage);

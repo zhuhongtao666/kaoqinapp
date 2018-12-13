@@ -25,6 +25,8 @@ import { ListPage } from '../pages/list/list';
 import { ModalPage } from '../pages/modal/modal';
 import { MygroupPage } from '../pages/mygroup/mygroup';
 import { GroupinfoPage } from '../pages/groupinfo/groupinfo';
+import { AdmincardsPage } from '../pages/admincards/admincards';
+import { InfoPage } from '../pages/info/info';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { GroupinfoPage } from '../pages/groupinfo/groupinfo';
     ModalPage,
     MygroupPage,
     GroupinfoPage,
+    AdmincardsPage,
+    InfoPage,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,8 @@ import { GroupinfoPage } from '../pages/groupinfo/groupinfo';
     ModalPage,
     MygroupPage,
     GroupinfoPage,
+    AdmincardsPage,
+    InfoPage,
   ],
   providers: [
     StatusBar,

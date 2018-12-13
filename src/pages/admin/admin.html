@@ -5,43 +5,48 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar hideBackButton="true">
+  <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>管理员页面</ion-title>
+    <ion-title>课程信息</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <h1>个人信息</h1>
-    <hr>
-    <div>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <img id="myphoto" src="assets/img/91Mvm6eFT8eiJhJIJpe6_other.png" style="width: 400px;height: 400px;" />
-          </ion-col>
-          <ion-col>
-            <br/><br/>
-            <br/><br/>
-            <h5>用户名：{{ username }}</h5>
-            <h5>手机号：{{ tel }}</h5>
-            <h5>身份证：{{ sfz }}</h5>
-            <h5>用户身份：{{ utype }}</h5>
-            <h5>课程：{{ classs }}</h5>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-    <div class="spacer" style="height:10px;" id="admin-spacer"></div>
+    <h1>课程信息</h1>
     <hr>
     <ion-item>
-      <ion-label>查找日期</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="time"></ion-datetime>
+      <ion-label>课程名称</ion-label>
+      <div item-content id="classname">{{ classname }}</div>
     </ion-item>
-    <button ion-button block on-click="select()">查找</button>
-    
+    <ion-item>
+      <ion-label>上课地点</ion-label>
+      <div item-content id="classplace">{{ classplace }}</div>
+    </ion-item>
+    <ion-item>
+      <ion-label>上课时间</ion-label>
+      <div item-content id="classtime">{{ classtime }}</div>
+    </ion-item>
     <hr>
-    <button ion-button block on-click="gotolist()">查看名单</button>
-    <button ion-button block on-click="exit()">退出登录</button>
+    <div>
+      <h1>查看当天考勤情况</h1>
+      <ion-item>
+        <ion-label>查找日期</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="time"></ion-datetime>
+      </ion-item>
+      <button ion-button block on-click="select()">查找</button>
+      <ion-list>
+        <ion-list-header>
+          当天未签到
+        </ion-list-header>
+        <button ion-item *ngFor="let item of noqiandaos" (click)="itemSelected(item)">{{ item }}</button>
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          当天已签到
+        </ion-list-header>
+        <button ion-item *ngFor="let item2 of qiandaos" (click)="itemSelected2(item2)">{{ item2 }}</button>
+      </ion-list>
+    </div>
+    <hr>
 </ion-content>
