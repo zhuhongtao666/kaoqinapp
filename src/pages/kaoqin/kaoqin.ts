@@ -9,6 +9,9 @@ import { Appconfig } from '../../app/app.config';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 declare var BMap;
+declare var AMap;
+//declare var qq;
+
 const httpOptions = {
   headers : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' })
 };
@@ -107,6 +110,29 @@ export class kaoqinPage {
     }
     
   }
+  gaodemap(){
+    var map = new AMap.Map('amap',{
+      resizeEnable:true
+    });
+    AMap.plugin('AMap.Geolocation',function(){
+      var geolocation = new AMap.Geolocation({
+        // 是否使用高精度定位，默认：true
+        enableHighAccuracy: true,
+        // 设置定位超时时间，默认：无穷大
+        timeout: 10000,
+        // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+        buttonOffset: new AMap.Pixel(10, 15),
+        //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+        zoomToAccuracy: true,     
+        //  定位按钮的排放位置,  RB表示右下
+        buttonPosition: 'RB'
+      });
+      map.addControl(geolocation);
+      geolocation.getCurrentPosition(function(data){
+        console.log('gaopde'+data.position);
+      })
+    })
+  }
   loadmap(){
     //var lng_max = this.jingweidu.lng_max;
     //var lng_min = this.jingweidu.lng_min;
@@ -187,28 +213,51 @@ export class kaoqinPage {
     this.geolocation.getCurrentPosition(geo_options).then((resp) => {
       var lat = resp.coords.latitude+0.00401;
       var lng = resp.coords.longitude+0.01121;
+      var alat = resp.coords.latitude;
+      var alng = resp.coords.longitude;
       //document.getElementById("test3").innerHTML = lat.toString()+" "+lng.toString();
       x = lng;
       y = lat;
 
+      var map = new BMap.Map("map3");
+      var point = new BMap.Point(alng,alat);
+      var convertor = new BMap.Convertor();
+      var pointArr = [];
+      pointArr.push(point);
+      convertor.translate(pointArr,1,5,function(data){
+        var mk = new BMap.Marker(data.points[0]);
+        //map.centerAndZoom(point,14);
+        map.addOverlay(mk);
+      })
+      
+      
       //document.getElementById("result").innerHTML = resp.coords.longitude + ',' + resp.coords.latitude;
-      var map = new BMap.Map("map_container2");
-      var point = new BMap.Point(lng,lat);
-      map.centerAndZoom(point,14);
-      var mk = new BMap.Marker(point);
-      map.addOverlay(mk);
-      map.panTo(point);
+      var map = new AMap.Map("map_container2",{
+        resizeEnable:true,
+        zoom:14,
+        center:[alng,alat]
+      });
+      var gps = [alng,alat];
+      var lnglats: any;
+      AMap.convertFrom(gps,'gps',function(status,result){
+          lnglats = result.locations[0];
+          console.log(x+'gps'+y);
+          console.log(lnglats.lng+'amap'+lnglats.lat);
+          var marker = new AMap.Marker({
+            map:map,
+            position:[lnglats.lng,lnglats.lat]
+          });
+      })
+     
       
       //if(lng<=lng_max && lng>=lng_min && lat<=lat_max && lat>=lat_min)
      // {
+
       success.present();
       document.getElementById("commit").removeAttribute("disabled");
       
       this.gpsx = x;
       this.gpsy = y;
-      console.log(this.gpsx);
-      console.log(this.gpsy);
-      
      // }
      // else{
         //fail.present();
@@ -217,8 +266,12 @@ export class kaoqinPage {
     }).catch((error) => {
       fail.present();
       this.loadmap();
+      console.log(error);
       //document.getElementById("result2").innerHTML = error;
     });
+  }
+  baidumap(x,y){
+      
   }
   usecamera() {
     const options: CameraOptions = {
@@ -233,7 +286,7 @@ export class kaoqinPage {
     this.camera.getPicture(options).then((imageData) => {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):
-     var image = (<HTMLInputElement>document.getElementById("myphoto"));
+     var image = (<HTMLInputElement>document.getElementById("myphoto2"));
      image.src = "data:image/jpeg;base64,"+imageData;
      this.photo = imageData;
      //document.getElementById("test").innerHTML = imageData;

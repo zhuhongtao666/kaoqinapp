@@ -34,7 +34,7 @@ export class GroupinfoPage {
       }
     }
     var dayweek,starttime,endtime;
-    for(var i=0;i<usergroup.length;i++){
+    for(i=0;i<usergroup.length;i++){
       if(classs == usergroup[i].groupname){
         dayweek = usergroup[i].dayweek;
         starttime = usergroup[i].starttime;
