@@ -18,19 +18,18 @@
   <hr>
   <form id="page2-form5">
     <ion-item id="page2-select2">
-      <ion-label>课程</ion-label>
+      <ion-label>群组</ion-label>
       <ion-select [(ngModel)]="place" name="place" [compareWith]="test2">
         <ion-option *ngFor="let lesson of lessons" [value]="lesson">{{ lesson }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item detail-push>
-      <ion-label>上课地点</ion-label>
+      <ion-label>地点</ion-label>
       <div item-content id="classroom"></div>
     </ion-item>
     
     <hr>
     <div id="map_container2" style="width: 300px;height: 300px"></div>
-    <div id="map3" style="width: 300px;height: 300px"></div>
     <div>
         <h4 id="result"></h4>
     </div>

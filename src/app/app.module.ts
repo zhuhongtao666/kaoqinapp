@@ -27,6 +27,10 @@ import { MygroupPage } from '../pages/mygroup/mygroup';
 import { GroupinfoPage } from '../pages/groupinfo/groupinfo';
 import { AdmincardsPage } from '../pages/admincards/admincards';
 import { InfoPage } from '../pages/info/info';
+import { BLE } from '@ionic-native/ble';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { Device } from '@ionic-native/device';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 @NgModule({
   declarations: [
@@ -78,10 +82,14 @@ import { InfoPage } from '../pages/info/info';
   ],
   providers: [
     StatusBar,
+    BackgroundMode,
     Camera,
     Geolocation,
     ImagePicker,
     Calendar,
+    BLE,
+    Device,
+    BluetoothSerial,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

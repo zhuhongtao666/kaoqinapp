@@ -109,6 +109,9 @@ export class LoginPage {
       })
     }
   }
+  exitapp(){
+    this.platform.exitApp();
+  }
   gotokaoqin(username: HTMLInputElement, password: HTMLInputElement) {
     if( (parseInt(username.value)%1000000) - 120000 >= 0){
       this.username = username.value;

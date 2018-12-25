@@ -16,7 +16,7 @@
       <p>{{ item.content }}</p>
     </ion-card-content>
     <ion-row no-padding>
-      <button ion-button small clear color="orange" icon-start (click)="gotoclass()">
+      <button ion-button small clear color="orange" icon-start (click)="gotoclass(item.title,item.content)">
         <ion-icon name="book"></ion-icon>
         进入课程
       </button>

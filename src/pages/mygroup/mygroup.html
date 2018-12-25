@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <ion-title>我的群组</ion-title>
   </ion-navbar>
 
@@ -20,5 +20,6 @@
   <ion-list>
       <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">{{ item }}</button>
   </ion-list>
-  <button ion-button block (click)="joingroup()">加入群组</button>
+  <button ion-button block (click)="openprompt()">加入群组</button>
+  <button ion-button block (click)="back()">返回</button>
 </ion-content>

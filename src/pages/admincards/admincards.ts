@@ -4,6 +4,7 @@ import { AdminPage } from '../admin/admin';
 import { ListPage } from '../list/list';
 import { LoginPage } from '../login/login';
 import { InfoPage } from '../info/info';
+import { Appconfig } from '../../app/app.config';
 
 /**
  * Generated class for the AdmincardsPage page.
@@ -20,12 +21,12 @@ import { InfoPage } from '../info/info';
 export class AdmincardsPage {
   items = [
     {
-      title:"database1",
-      content:"no"
+      title:"数据库-宋安平",
+      content:"上课地点:东区计算机楼;上课时间:每周三08：00 ~ 11：40"
     },
     {
-      title:"database2",
-      content:"yes"
+      title:"数据库研讨-宋安平",
+      content:"上课地点:东区计算机楼;上课时间:每周五14：10 ~ 15：50"
     }
   ]
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -33,7 +34,9 @@ export class AdmincardsPage {
 
   ionViewDidLoad() {
   }
-  gotoclass(){
+  gotoclass(title,content){
+    Appconfig.setadmingroup(title);
+    Appconfig.setadmincontent(content);
     this.navCtrl.push(AdminPage);
   }
   gotolist(){

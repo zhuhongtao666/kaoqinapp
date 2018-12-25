@@ -11,6 +11,8 @@ export class Appconfig {
     public static user_group:any;
     public static lessons:any;
     public static mygroup:string;
+    public static admin_group:string;
+    public static admin_content:string;
 
     public static getusername() {
         return this.username;
@@ -78,6 +80,18 @@ export class Appconfig {
     public static setmygroup(mygroup) {
         this.mygroup = mygroup;
     }
+    public static getadmingroup() {
+        return this.admin_group;
+    }
+    public static setadmingroup(admin_group) {
+        this.admin_group = admin_group;
+    }
+    public static getadmincontent() {
+        return this.admin_content;
+    }
+    public static setadmincontent(admin_content) {
+        this.admin_content = admin_content;
+    }
     public static clear(){
         this.username = null;
         this.uimg = null;
@@ -90,5 +104,7 @@ export class Appconfig {
         this.user_group = null;
         this.lessons = null;
         this.mygroup = null;
+        this.admin_content = null;
+        this.admin_group = null;
     }
 }

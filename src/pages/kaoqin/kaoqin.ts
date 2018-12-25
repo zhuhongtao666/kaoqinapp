@@ -7,6 +7,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Appconfig } from '../../app/app.config';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { BLE } from '@ionic-native/ble';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { Device } from '@ionic-native/device';
 
 declare var BMap;
 declare var AMap;
@@ -35,7 +38,7 @@ export class kaoqinPage {
   public gpsy:any;
   public dis:any;
 
-  constructor(public platform: Platform,public toastCtrl: ToastController,public http: HttpClient,public navCtrl: NavController, private camera: Camera, private geolocation: Geolocation, public navparams: NavParams, public events: Events) {
+  constructor(public device:Device,public bluetoothSerial: BluetoothSerial,public ble: BLE,public platform: Platform,public toastCtrl: ToastController,public http: HttpClient,public navCtrl: NavController, private camera: Camera, private geolocation: Geolocation, public navparams: NavParams, public events: Events) {
   }
   ionViewDidLoad() {
     this.cordovamap();
@@ -47,6 +50,31 @@ export class kaoqinPage {
     }
     this.lessons = array;
     //this.getselect();
+    //document.getElementById("test3").innerHTML = this.device.uuid;
+    //console.log(this.device.uuid);
+  }
+  bluetooth(){
+    if(this.platform.is("android")){
+      if(this.bluetoothSerial.isEnabled()){
+        this.bluetoothSerial.setDeviceDiscoveredListener().subscribe(device => {
+        document.getElementById("test3").innerHTML = JSON.stringify(device);
+        });
+        this.bluetoothSerial.discoverUnpaired();
+      }
+      else{
+        this.bluetoothSerial.enable();
+        this.bluetooth();
+      }  
+    }
+    else if(this.platform.is("ios")){
+      this.ble.startScan([]).subscribe(device => {
+          console.log(JSON.stringify(device));
+      });
+      setTimeout(() => {
+        this.ble.stopScan();
+      },10000);
+    }
+     
   }
   test2(l1:string,l2:string){
     //var lessons = Appconfig.getlessons();
@@ -57,7 +85,7 @@ export class kaoqinPage {
         break;
       }
       else{
-        document.getElementById("classroom").innerHTML = '请选择课程！';
+        document.getElementById("classroom").innerHTML = '请选择群组！';
       }
     }
     return l1===l2;
@@ -78,7 +106,7 @@ export class kaoqinPage {
        break;
      }
      else{
-       this.classroom = '请选择课程';
+       this.classroom = '请选择公司';
        document.getElementById("classroom").innerHTML = this.classroom;
      }
    }
@@ -103,7 +131,7 @@ export class kaoqinPage {
     }
     else{
       const toast1 = this.toastCtrl.create({
-        message: "请选择上课地点！",
+        message: "请选择上班地点！",
         duration: 2000
       });
       toast1.present();
@@ -199,7 +227,7 @@ export class kaoqinPage {
     //var lat_min = this.jingweidu.lat_min;
     var success = this.toastCtrl.create({
       message: "地点定位成功！",
-      duration: 4000
+      duration: 2000
     });
     var fail = this.toastCtrl.create({
       message: "GPS定位失败,采用baidumap！",
@@ -218,18 +246,6 @@ export class kaoqinPage {
       //document.getElementById("test3").innerHTML = lat.toString()+" "+lng.toString();
       x = lng;
       y = lat;
-
-      var map = new BMap.Map("map3");
-      var point = new BMap.Point(alng,alat);
-      var convertor = new BMap.Convertor();
-      var pointArr = [];
-      pointArr.push(point);
-      convertor.translate(pointArr,1,5,function(data){
-        var mk = new BMap.Marker(data.points[0]);
-        //map.centerAndZoom(point,14);
-        map.addOverlay(mk);
-      })
-      
       
       //document.getElementById("result").innerHTML = resp.coords.longitude + ',' + resp.coords.latitude;
       var map = new AMap.Map("map_container2",{
@@ -241,8 +257,6 @@ export class kaoqinPage {
       var lnglats: any;
       AMap.convertFrom(gps,'gps',function(status,result){
           lnglats = result.locations[0];
-          console.log(x+'gps'+y);
-          console.log(lnglats.lng+'amap'+lnglats.lat);
           var marker = new AMap.Marker({
             map:map,
             position:[lnglats.lng,lnglats.lat]
@@ -358,14 +372,14 @@ export class kaoqinPage {
             var arr2 = arr[5].split(":");
             if(arr2.length <= 2){
               const toast = this.toastCtrl.create({
-                message: '上课考勤成功，请记得下课考勤！'+"距离地点："+this.dis+"km",
+                message: '上班考勤成功，请记得下课考勤！'+"距离地点："+this.dis+"km",
                 duration: 8000
               });
               toast.present();
             }
             else{
               const toast_success = this.toastCtrl.create({
-                message: '下课考勤成功！'+"距离地点："+this.dis+"km",
+                message: '下班考勤成功！'+"距离地点："+this.dis+"km",
                 duration: 1000
               });
               toast_success.present();

@@ -3,6 +3,11 @@ import { NavController } from 'ionic-angular';
 import { CalendarComponentOptions } from 'ion2-calendar';
 import * as HighCharts from 'highcharts';
 import { Appconfig } from '../../app/app.config';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers : new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' })
+};
 
 @Component({
   selector: 'page-page4',
@@ -15,12 +20,17 @@ export class Page4Page {
   truename:string;
   gonghao: string;
   img: string;
-  dateMulti: string[] = ['2018-10-01','2018-10-12','2018-10-13','2018-10-15'];
+  lessons: any;
+  place:any;
+  usergroup: any;
+  groupid: any;
+  selectOptions:any;
+  dateMulti: string[];
   type: 'string';
   optionsMulti: CalendarComponentOptions = {
     pickMode: 'multi'
   };
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,public http: HttpClient) {
   }
   ionViewDidLoad() {
     //this.table();
@@ -30,6 +40,58 @@ export class Page4Page {
     this.truename= Appconfig.gettruename();
     this.gonghao = Appconfig.getgonghao();
     this.getpicture();
+
+    this.usergroup = Appconfig.getusergroup();
+    let array :Array<string> = new Array<string>();
+    for(var i = 0 ;i<this.usergroup.length;i++){
+      array[i] = this.usergroup[i].groupname;
+    }
+    this.lessons = array;
+    this.selectOptions = {
+      title: '请选择群组',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+      ]
+    };
+  }
+  getdate(l1:string, l2:string){
+    var usergroup = Appconfig.getusergroup();
+    for(var i=0;i<usergroup.length;i++){
+      if(l2 == usergroup[i].groupname){
+        this.groupid = usergroup[i].groupid;
+        break;
+      }
+    }
+    return l1===l2;
+  }
+  tesst2(){
+    console.log("cancel");
+  }
+  getkqdate(){
+    var usergroup = Appconfig.getusergroup();
+    for(var i=0;i<usergroup.length;i++){
+      if(this.place == usergroup[i].groupname){
+        this.groupid = usergroup[i].groupid;
+        break;
+      }
+    }
+    let pathurl:string = 'http://118.24.76.130:8000/selectkqDay';
+      let pramas = JSON.stringify({
+        uid: Appconfig.getuid(),
+        groupid: this.groupid,
+      });
+      this.http.post(pathurl,pramas,httpOptions).subscribe( (data) => {
+        if(data['code'] == 0){
+          this.dateMulti = data['date'];
+          console.log(data['date']);
+        }
+      })
   }
   getpicture(){
     this.img = Appconfig.getuimg();

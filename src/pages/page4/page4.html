@@ -28,5 +28,22 @@
   </div>
   <div class="spacer" style="height:10px;" id="page4-spacer6"></div>
   <hr>
+  <ion-item id="page2-select2">
+    <ion-label>请选择群组</ion-label>
+    <ion-select [(ngModel)]="place" name="place" [selectOptions]="selectOptions">
+      <ion-option *ngFor="let lesson of lessons" [value]="lesson">{{ lesson }}</ion-option>
+    </ion-select>
+  </ion-item>
+  <button ion-button block (click)="getkqdate()">确认</button>
+  <hr>
+  <br/>
+  <h3>签到日历</h3>
+  <hr>
+  <ion-calendar [(ngModel)]="dateMulti"
+                [options]="optionsMulti"
+                [type]="type"
+                [format]="'YYYY-MM-DD'">
+  </ion-calendar>
+  <hr>
   <h1>后续功能，请敬请期待！</h1>
 </ion-content>
