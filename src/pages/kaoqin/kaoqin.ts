@@ -243,7 +243,9 @@ export class kaoqinPage {
       var lng = resp.coords.longitude+0.01121;
       var alat = resp.coords.latitude;
       var alng = resp.coords.longitude;
-      //document.getElementById("test3").innerHTML = lat.toString()+" "+lng.toString();
+      document.getElementById("test3").innerHTML = lat.toString()+" "+lng.toString();
+      console.log(lat);
+      console.log(lng);
       x = lng;
       y = lat;
       
@@ -373,7 +375,7 @@ export class kaoqinPage {
             var arr2 = arr[5].split(":");
             if(arr2.length <= 2){
               const toast = this.toastCtrl.create({
-                message: '上班考勤成功，请记得下课考勤！'+"距离地点："+this.dis+"km",
+                message: '上班考勤成功，请记得下班考勤！'+"距离地点："+this.dis+"km",
                 duration: 8000
               });
               toast.present();
