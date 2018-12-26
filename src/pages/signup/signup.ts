@@ -119,7 +119,7 @@ export class SignupPage {
       console.log(data);
     });
   }
-  signup(username: HTMLInputElement, password: HTMLInputElement, password2: HTMLInputElement, tel: HTMLInputElement, xuehao: HTMLInputElement, sfz: HTMLInputElement,truename: HTMLInputElement) {
+  signup(username: HTMLInputElement, password: HTMLInputElement, password2: HTMLInputElement, tel: HTMLInputElement, sfz: HTMLInputElement,truename: HTMLInputElement) {
     let pathurl: string = 'http://118.24.76.130:8000/registerUser';
     if(password.value != password2.value){
       const toast_0 = this.toastCtrl.create({
@@ -140,7 +140,7 @@ export class SignupPage {
         username: username.value,
         password: password.value,
         phone: tel.value,
-        gonghao: xuehao.value,
+        gonghao: tel.value,
         sfz: sfz.value,
         uimg: '',
         truename: truename.value

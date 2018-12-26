@@ -39,7 +39,8 @@ export class AdmincardsPage {
     Appconfig.setadmincontent(content);
     this.navCtrl.push(AdminPage);
   }
-  gotolist(){
+  gotolist(title){
+    Appconfig.setadmingroup(title);
     this.navCtrl.push(ListPage);
   }
   exit(){

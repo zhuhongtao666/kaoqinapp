@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController,ModalController } from 'ionic-angular';
 import { ListPage } from '../list/list';
 import { LoginPage } from '../login/login';
 import { Appconfig } from '../../app/app.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ModalPage } from '../modal/modal';
 
 /**
  * Generated class for the AdminPage page.
@@ -24,11 +25,13 @@ export class AdminPage {
   classname:string;
   classplace:string;
   classtime:string;
+  nokq:any;
+  kq:any;
   noqiandaos = [];
   qiandaos = [];
   time:any;
 
-  constructor(public toastCtrl: ToastController,public http: HttpClient,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController,public toastCtrl: ToastController,public http: HttpClient,public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewWillEnter() {
@@ -40,7 +43,7 @@ export class AdminPage {
   }
   select(){
     var groupid,id,people,nokqid,nokqpeople:any;
-    if(this.time == ''){
+    if(this.time == null){
       const toast = this.toastCtrl.create({
         message: '请选择查询时间！',
         duration: 1000
@@ -71,8 +74,8 @@ export class AdminPage {
           people = data['people'];
           nokqid = data['nokqid'];
           nokqpeople = data['nokqpeople'];
-          this.noqiandaos = nokqpeople;
-          this.qiandaos = people;
+          this.nokq = nokqpeople;
+          this.kq = people;
         }
         else if(data['code'] == 1){
           const toast = this.toastCtrl.create({
@@ -91,6 +94,10 @@ export class AdminPage {
       });
     }
 
+  }
+  itemSelected(item){
+    const modal = this.modalCtrl.create(ModalPage,{ user: item });
+    modal.present();
   }
   gotolist() {
     this.navCtrl.push(ListPage);

@@ -31,12 +31,6 @@
       </ion-label>
       <ion-input type="password" placeholder="" #password2></ion-input>
     </ion-item>
-    <ion-item id="signup-inputxuehao">
-      <ion-label>
-        工号
-      </ion-label>
-      <ion-input type="text" placeholder="" #xuehao></ion-input>
-    </ion-item>
     <ion-item id="signup-inputtruename">
       <ion-label>
         姓名
@@ -62,7 +56,7 @@
       </ion-label>
       <ion-checkbox [(ngModel)]="xieyi" on-click="test()" name="myxieyi"></ion-checkbox>
     </ion-item>
-    <button id="signup_commit" ion-button color="stable" block on-click="signup(username,password,password2,tel,xuehao,sfz,truename)" disabled="true">
+    <button id="signup_commit" ion-button color="stable" block on-click="signup(username,password,password2,tel,sfz,truename)" disabled="true">
       提交注册
     </button>
   </form>

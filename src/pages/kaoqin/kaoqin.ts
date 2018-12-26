@@ -272,6 +272,7 @@ export class kaoqinPage {
       
       this.gpsx = x;
       this.gpsy = y;
+      //document.getElementById("test3").innerHTML = x.toString()+" "+y.toString();
      // }
      // else{
         //fail.present();
