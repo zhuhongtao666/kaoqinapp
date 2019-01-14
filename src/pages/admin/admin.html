@@ -41,13 +41,13 @@
         <ion-list-header>
           当天未签到
         </ion-list-header>
-        <button ion-item *ngFor="let item of nokq" (click)="itemSelected(item)">{{ item }}</button>
+        <button ion-item *ngFor="let item of noqiandaos" (click)="itemSelected(item.id)">{{ item.truename }}</button>
       </ion-list>
       <ion-list>
         <ion-list-header>
           当天已签到
         </ion-list-header>
-        <button ion-item *ngFor="let item2 of kq" (click)="itemSelected2(item2)">{{ item2 }}</button>
+        <button ion-item *ngFor="let item2 of qiandaos" (click)="itemSelected(item2.id)">{{ item2.truename }}</button>
       </ion-list>
     </div>
     <hr>

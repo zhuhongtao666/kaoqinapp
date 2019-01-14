@@ -4,6 +4,7 @@ import { Appconfig } from '../../app/app.config';
 import { GroupinfoPage } from '../groupinfo/groupinfo';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TabsControllerPage } from '../tabs-controller/tabs-controller';
+import { kaoqinPage } from '../kaoqin/kaoqin';
 
 /**
  * Generated class for the MygroupPage page.

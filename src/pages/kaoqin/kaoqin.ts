@@ -34,13 +34,14 @@ export class kaoqinPage {
   public jingweidu:any;
   public usergroup:any;
   public classroom:any;
+  public classroom2:string;
   public gpsx:any;
   public gpsy:any;
   public dis:any;
 
   constructor(public device:Device,public bluetoothSerial: BluetoothSerial,public ble: BLE,public platform: Platform,public toastCtrl: ToastController,public http: HttpClient,public navCtrl: NavController, private camera: Camera, private geolocation: Geolocation, public navparams: NavParams, public events: Events) {
   }
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.cordovamap();
     this.username = Appconfig.getusername();
     this.usergroup = Appconfig.getusergroup();
@@ -79,15 +80,16 @@ export class kaoqinPage {
   test2(l1:string,l2:string){
     //var lessons = Appconfig.getlessons();
     var usergroup = Appconfig.getusergroup();
+    var place;
+    console.log(usergroup);
+    console.log(l1);
     for(var i=0;i<usergroup.length;i++){
-      if(l2 == usergroup[i].groupname){
-        document.getElementById("classroom").innerHTML = usergroup[i].dwname;
-        break;
-      }
-      else{
-        document.getElementById("classroom").innerHTML = '请选择群组！';
+      console.log(usergroup[i].groupname);
+      if(l1 == usergroup[i].groupname){
+        place = usergroup[i].dwname;
       }
     }
+    document.getElementById("classroomtest").innerHTML = place;
     return l1===l2;
   }
   getselect(){
@@ -100,8 +102,7 @@ export class kaoqinPage {
    for(var i=0;i<this.usergroup.length;i++){
      if(this.place ==  this.usergroup[i].groupname){
        this.classroom = this.usergroup[i].dwname;
-       console.log(this.place);
-       console.log(this.classroom);
+       console.log(this.usergroup);
        document.getElementById("classroom").innerHTML = this.classroom;
        break;
      }
@@ -243,7 +244,7 @@ export class kaoqinPage {
       var lng = resp.coords.longitude+0.01121;
       var alat = resp.coords.latitude;
       var alng = resp.coords.longitude;
-      document.getElementById("test3").innerHTML = lat.toString()+" "+lng.toString();
+      //document.getElementById("test3").innerHTML = lat.toString()+" "+lng.toString();
       console.log(lat);
       console.log(lng);
       x = lng;
@@ -375,14 +376,14 @@ export class kaoqinPage {
             var arr2 = arr[5].split(":");
             if(arr2.length <= 2){
               const toast = this.toastCtrl.create({
-                message: '上班考勤成功，请记得下班考勤！'+"距离地点："+this.dis+"km",
+                message: '上课考勤成功，请记得下课考勤！'+"距离地点："+this.dis+"km",
                 duration: 8000
               });
               toast.present();
             }
             else{
               const toast_success = this.toastCtrl.create({
-                message: '下班考勤成功！'+"距离地点："+this.dis+"km",
+                message: '下课考勤成功！'+"距离地点："+this.dis+"km",
                 duration: 1000
               });
               toast_success.present();

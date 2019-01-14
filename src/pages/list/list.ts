@@ -33,27 +33,29 @@ export class ListPage {
 
   }
   initializeItems(){
-    this.items= [];
+    this.items = [];
   }
   getlist() {
-    var groupid,people,id:any;
+    var groupid,people,id,array:any;
     var groupname = Appconfig.getadmingroup();
-    if(groupname == '数据库-宋安平'){
-      groupid = '2';
-    }
-    else if(groupname == '数据库研讨-宋安平'){
-      groupid = '1';
-    }
+    groupid = Appconfig.getmyadmingroupid();
     let pathurl:string = 'http://118.24.76.130:8000/selectallpeople';
     let pramas = JSON.stringify({
       groupid:groupid
     });
     this.http.post(pathurl,pramas,httpOptions).subscribe( (data => {
+      console.log(data);
       if(data['code'] == 0){
         people = data['people'];
-        console.log(people);
         id = data['id'];
-        this.items = people;
+        for(var i=0;i<id.length;i++){
+          array = {
+            id:id[i],
+            truename:people[i]
+          };
+          this.items.push(array);
+        }
+        console.log(this.items);
       }
       else if(data['code'] == 3){
         const toast = this.toastCtrl.create({
@@ -76,17 +78,17 @@ export class ListPage {
         });
         toast.present();
       }
-    }))
+    }));
   }
   itemSelected(item){
-    const modal = this.modalCtrl.create(ModalPage);
+    const modal = this.modalCtrl.create(ModalPage, { user: item });
     modal.present();
   }
   getItems(ev){
     this.initializeItems();
     var val = ev.target.value;
     if(val && val.trim()!= ''){
-      this.items = this.items.filter((v)=>{
+      this.items.truename = this.items.truename.filter((v)=>{
         return (v.toLowerCase().indexOf(val.toLowerCase())>-1);
       })
     }

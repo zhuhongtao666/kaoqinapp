@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, group } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController,ModalController } from 'ionic-angular';
 import { ListPage } from '../list/list';
 import { LoginPage } from '../login/login';
@@ -25,8 +25,6 @@ export class AdminPage {
   classname:string;
   classplace:string;
   classtime:string;
-  nokq:any;
-  kq:any;
   noqiandaos = [];
   qiandaos = [];
   time:any;
@@ -37,12 +35,13 @@ export class AdminPage {
   ionViewWillEnter() {
     this.classname=Appconfig.getadmingroup();
     var content = Appconfig.getadmincontent();
-    var half = content.split(';');
-    this.classplace=half[0].split(':')[1];
-    this.classtime=half[1].split(':')[1];
+    var half1 = content.split('地点：');
+    var half2 = content.split(';');
+    this.classplace=half1[1].split(' ')[0];
+    this.classtime=half2[half2.length-1].split(' ')[0];
   }
   select(){
-    var groupid,id,people,nokqid,nokqpeople:any;
+    var groupid,id,people,nokqid,nokqpeople,array:any;
     if(this.time == null){
       const toast = this.toastCtrl.create({
         message: '请选择查询时间！',
@@ -51,19 +50,15 @@ export class AdminPage {
       toast.present();
     }
     else{
-      if(this.classname == '数据库-宋安平'){
-        groupid = '2';
-      }
-      else if(this.classname == '数据库研讨-宋安平'){
-        groupid = '1';
-      }
-      console.log(groupid);
+      groupid = Appconfig.getmyadmingroupid();
+      //console.log(groupid);
       let pathurl:string = 'http://118.24.76.130:8000/getkqjilu';
         let pramas = JSON.stringify({
           groupid:groupid,
           date:this.time
         });
       this.http.post(pathurl,pramas,httpOptions).subscribe( (data) => {
+        console.log(data);
         if(data['code'] == 0){
           const toast = this.toastCtrl.create({
             message: '搜索成功！',
@@ -74,8 +69,21 @@ export class AdminPage {
           people = data['people'];
           nokqid = data['nokqid'];
           nokqpeople = data['nokqpeople'];
-          this.nokq = nokqpeople;
-          this.kq = people;
+          for(var i=0;i<nokqid.length;i++){
+            array={
+              id:nokqid[i],
+              truename:nokqpeople[i]
+            };
+            this.noqiandaos.push(array);
+          }
+          for(i=0;i<id.length;i++){
+            array={
+              id:id[i],
+              truename:people[i]
+            };
+            this.qiandaos.push(array);
+          }
+          
         }
         else if(data['code'] == 1){
           const toast = this.toastCtrl.create({

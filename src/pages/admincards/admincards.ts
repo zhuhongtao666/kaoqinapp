@@ -19,28 +19,44 @@ import { Appconfig } from '../../app/app.config';
   templateUrl: 'admincards.html',
 })
 export class AdmincardsPage {
-  items = [
-    {
-      title:"数据库-宋安平",
-      content:"上课地点:东区计算机楼;上课时间:每周三08：00 ~ 11：40"
-    },
-    {
-      title:"数据库研讨-宋安平",
-      content:"上课地点:东区计算机楼;上课时间:每周五14：10 ~ 15：50"
-    }
-  ]
+  items = [];
+  public admingroup:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
+    var groupid,groupname,starttime,endtime,place,dayweek,group_password,array:any;
+    setTimeout(() => {
+      groupid=Appconfig.getadmingroupid();
+      groupname=Appconfig.getadmingroupname();
+      group_password=Appconfig.getadmingrouppwd();
+      starttime=Appconfig.getadminstarttime();
+      endtime=Appconfig.getadminendtime();
+      place=Appconfig.getadminplace();
+      dayweek=Appconfig.getadmindayweek();
+      for(var i=0;i<groupname.length;i++){
+        array = {
+          title:groupname[i],
+          content:"上课地点："+place[i]+"  上课时间：每周"+dayweek[i]+starttime[i]+"~"+endtime[i]+"  密码："+group_password[i]+"  组号："+groupid[i]
+        };
+        this.items.push(array);
+      }
+    }, 1000);
+    
   }
   gotoclass(title,content){
     Appconfig.setadmingroup(title);
     Appconfig.setadmincontent(content);
+    var id = content.split('组号：');
+    console.log(id[1]);
+    Appconfig.setmyadmingroupid(id[1]);
     this.navCtrl.push(AdminPage);
   }
-  gotolist(title){
+  gotolist(title,content){
     Appconfig.setadmingroup(title);
+    var id = content.split('组号：');
+    //console.log(id[1]);
+    Appconfig.setmyadmingroupid(id[1]);
     this.navCtrl.push(ListPage);
   }
   exit(){

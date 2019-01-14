@@ -60,7 +60,7 @@ export class LoginPage {
     this.navCtrl.push(LoginPage);
   }
   goTokaoqinPage(username: HTMLInputElement, password: HTMLInputElement){
-    if(username.value == 'admin' && password.value == 'admin'){
+    if(username.value == 'zhuhongtao' && password.value == 'zht666'){
       this.navCtrl.push(AdmincardsPage);
     }
     else{
@@ -94,6 +94,23 @@ export class LoginPage {
           Appconfig.setlessons(array);
           if(data['utype'] == 1){
             this.navCtrl.setRoot(TabsControllerPage);
+          }
+          else if(data['utype'] == 2){
+            let pathurl2: string = 'http://118.24.76.130:8000/getadmingroup';
+            let pramas2 = JSON.stringify({
+              uid: Appconfig.getuid()
+            });
+            this.http.post(pathurl2,pramas2,httpOptions).subscribe( (data) => {
+              console.log(data);
+              Appconfig.setadmingroupid(data['groupid']);
+              Appconfig.setadmingroupname(data['groupname']);
+              Appconfig.setadmingrouppwd(data['group_password']);
+              Appconfig.setadminplace(data['place']);
+              Appconfig.setadminstarttime(data['starttime']);
+              Appconfig.setadminendtime(data['endtime']);
+              Appconfig.setadmindayweek(data['dayweek']);
+            });
+            this.navCtrl.push(AdmincardsPage);
           }
           else{
             this.navCtrl.push(MubanPage);

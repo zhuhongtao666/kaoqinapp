@@ -13,6 +13,15 @@ export class Appconfig {
     public static mygroup:string;
     public static admin_group:string;
     public static admin_content:string;
+    public static myadmingroupid:string;
+    public static admingroupid:any;
+    public static admingroupname:any;
+    public static adminstarttime:any;
+    public static adminendtime:any;
+    public static admindayweek:any;
+    public static adminplace:any;
+    public static admingroup_password:any;
+    public static selectid:any;
 
     public static getusername() {
         return this.username;
@@ -92,6 +101,61 @@ export class Appconfig {
     public static setadmincontent(admin_content) {
         this.admin_content = admin_content;
     }
+    public static getadmingroupid() {
+        return this.admingroupid;
+    }
+    public static setadmingroupid(admingroupid) {
+        this.admingroupid = admingroupid;
+    }
+    public static getadmingroupname() {
+        return this.admingroupname;
+    }
+    public static setadmingroupname(admingroupname) {
+        this.admingroupname = admingroupname;
+    }
+    public static getadminstarttime() {
+        return this.adminstarttime;
+    }
+    public static setadminstarttime(adminstarttime) {
+        this.adminstarttime = adminstarttime;
+    }
+    public static getadminendtime() {
+        return this.adminendtime;
+    }
+    public static setadminendtime(adminendtime) {
+        this.adminendtime = adminendtime;
+    }
+    public static getadminplace() {
+        return this.adminplace;
+    }
+    public static setadminplace(adminplace) {
+        this.adminplace = adminplace;
+    }
+    public static getadmindayweek() {
+        return this.admindayweek;
+    }
+    public static setadmindayweek(admindayweek) {
+        this.admindayweek = admindayweek;
+    }
+    public static getadmingrouppwd() {
+        return this.admingroup_password;
+    }
+    public static setadmingrouppwd(admingroup_password) {
+        this.admingroup_password = admingroup_password;
+    }
+    public static getmyadmingroupid() {
+        return this.myadmingroupid;
+    }
+    public static setmyadmingroupid(myadmingroupid) {
+        this.myadmingroupid = myadmingroupid;
+    }
+    public static getselectid() {
+        return this.selectid;
+    }
+    public static setselectid(selectid) {
+        this.selectid = selectid;
+    }
+
     public static clear(){
         this.username = null;
         this.uimg = null;
@@ -106,5 +170,14 @@ export class Appconfig {
         this.mygroup = null;
         this.admin_content = null;
         this.admin_group = null;
+        this.admingroupid = null;
+        this.admingroupname = null;
+        this.adminstarttime = null;
+        this.adminendtime = null;
+        this.adminplace = null;
+        this.admindayweek = null;
+        this.admingroup_password = null;
+        this.myadmingroupid = null;
+        this.selectid = null;
     }
 }

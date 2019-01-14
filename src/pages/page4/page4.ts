@@ -108,11 +108,11 @@ export class Page4Page {
         type: 'column'
       },
       title: {
-        text: '当月考勤统计'
+        text: '整体考勤统计'
       },
       xAxis: {
         categories: [
-          '正常签到','调休','请假','考勤异常'
+          '正常签到','请假','考勤异常'
         ],
         crosshair: true
       },
@@ -134,7 +134,7 @@ export class Page4Page {
         }
       },
       series: [{
-        name: '七月',
+        name: this.place,
         data: [20,1,3,2]
       }]
     });
